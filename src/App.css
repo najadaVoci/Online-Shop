@@ -1,4 +1,43 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 0 30px;
+}
+
+.clear-seaarch {
+  position: absolute;
+  right: -33px;
+  top: 1px;
+  cursor: pointer;
+}
+
+.clear-seaarch img {
+  width: 30px;
+}
+
+.total-result {
+  display: flex;
+  justify-content: flex-start;
+  height: 38px;
+}
+
+.search-icon {
+  cursor: pointer;
+}
+
+@media (min-width: 1460px) {
+  .container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/* span {
+  vertical-align: baseline;
+} */
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +74,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
