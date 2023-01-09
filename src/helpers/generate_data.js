@@ -1,4 +1,4 @@
-export default function fakeData() {
+export  function fakeData() {
   return new Promise((res, rej) => {
     const data = [];
     const products = [
@@ -48,21 +48,55 @@ export default function fakeData() {
       "Adicat Training Train Essentials 7 inch woven shorts in":
         "https://static01.nyt.com/images/2021/05/28/fashion/mens-style/28sp-gear-inyt1/oakImage-1621867392181-superJumbo.jpg",
     };
-
+    const sizes = ["X", "M", "L", "XL"];
     for (let i = 0; i < 100; i++) {
       const product = products[Math.floor(Math.random() * 10)];
       const image = randomImages[product];
+      const randomNrSizes = Math.floor(Math.random() * 4) + 1;
+      console.log("=>>>", randomNrSizes);
+      const totalSizes = [];
+      const pickedIndexes = [];
+      for (let i = 0; i < randomNrSizes; i++) {
+        const random = Math.floor(Math.random() * 4);
+        if (pickedIndexes.includes(random)) {
+          const random2 = Math.floor(Math.random() * 4);
+          const actualSize = sizes[random2];
+          console.log("=>", actualSize);
+          totalSizes.push(actualSize);
+          pickedIndexes.push(random2);
+        } else {
+          const actualSize = sizes[random];
+          console.log("=>", actualSize);
+          totalSizes.push(actualSize);
+          pickedIndexes.push(random);
+        }
+      }
+      // console.log(randomNrSizes);
       const obj = {
         id: Math.floor(Math.random() * 90000) + 10000,
         productName: product + " " + colors[Math.floor(Math.random() * 10)],
         image: image,
         price: Math.floor(Math.random() * 10) + 5,
+        sizes: [...new Set(...totalSizes)],
       };
       data.push(obj);
     }
-    
+
     setTimeout(() => {
       res(data);
     }, 2000);
   });
+}
+
+export function userFakeData(){
+  return new Promise((res, rej) => {
+    setTimeout(()=> {
+      res({
+        name: 'user',
+        surname: 'unknown',
+        credit: 100
+      })
+    }, 1000)
+   
+  })
 }

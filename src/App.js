@@ -2,12 +2,13 @@ import React from "react";
 import "./style.scss";
 import logo from "./logo.svg";
 import "./App.css";
-import FakeData from "./helpers/generate_data";
+import { fakeData, userFakeData } from "./helpers/generate_data";
 import Card from "./components/card/card";
 import Loader from "./components/loader/loader";
-
+import Header from "./components/header/header";
 function App() {
   const [data, setData] = React.useState([]); // ruajme te gjithe te dhenat fillestare
+  const [user, setUser] = React.useState(null); // ruajme te gjithe te dhenat fillestare
   const [inputValue, setInputValue] = React.useState(""); // current input value
   const [filteredData, setFilteredData] = React.useState(""); // te dhenat e filtruara
   const [mode, setMode] = React.useState(false);
@@ -30,13 +31,27 @@ function App() {
   const dataToRender = mode === true ? filteredData : data;
 
   React.useEffect(() => {
-    FakeData()
-      .then((res) => {
-        console.log(res);
-        setData(res);
-        setLoading(false);
-      })
-      .catch((e) => console.log(e));
+    const productDatapromise = fakeData();
+    // .then((res) => {
+    //   console.log(res);
+    //   setData(res);
+    //   setLoading(false);
+    // })
+    // .catch((e) => console.log(e));
+
+    const userDataPromise = userFakeData();
+    // .then((res) => {
+    //   console.log(res);
+    //   setUser(res);
+    //   setLoading(false);
+    // })
+    // .catch((e) => console.log(e));
+    Promise.all([productDatapromise, userDataPromise]).then((allData) => {
+      console.log("all data", allData);
+      setData(allData[0]);
+      setUser(allData[1]);
+      setLoading(false);
+    });
   }, []);
 
   const clearInput = () => {
@@ -46,6 +61,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       {isLoading ? <Loader /> : null}
       <div className="container">
         <div className="search">
@@ -95,6 +111,7 @@ function App() {
                   name={el.productName}
                   price={el.price}
                   imageSrc={el.image}
+                  sizes={el.sizes}
                 />
               );
             })

@@ -62,6 +62,20 @@
       font-size: 15px;
       line-height: 30px;
     }
+
+    &-sizes-inner {
+      span {
+        font-size: 18px;
+        margin-right: 3px;
+        width: 27px;
+        height: 27px;
+        display: inline-block;
+
+        &.active {
+          border: 1px solid black;
+        }
+      }
+    }
   }
 
   &:hover {
